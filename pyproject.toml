@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "silhouette"
+version = "0.1.0"
+description = "AI-powered Python code transformation tool"
+authors = ["Daniel Patrick Hug <DanielPatrickHug@gmail.com>"]
+readme = "README.md"
+packages = [{include = "silhouette", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+libcst = "^1.5.0"
+click = "^8.1.7"
+openai = "^1.54.4"
+instructor = "^1.6.3"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+black = "^24.10.0"
+isort = "^5.13.2"
+mypy = "^1.13.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+silhouette = "silhouette.cli:main"
+
+[tool.black]
+line-length = 88
+target-version = ['py312']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+
+[tool.mypy]
+ignore_missing_imports = true

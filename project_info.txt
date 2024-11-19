@@ -1,0 +1,156 @@
+Project and Environment Information
+===================================
+
+>>> python --version
+Python 3.12.0
+
+>>> pip --version
+pip 24.2 from /home/zeus/miniconda3/envs/cloudspace/lib/python3.12/site-packages/pip (python 3.12)
+
+>>> pip list
+Package    Version
+---------- -------
+pip        24.2
+setuptools 75.1.0
+wheel      0.44.0
+
+>>> python -c "import sys; print(sys.path)"
+['', '/home/zeus/miniconda3/envs/cloudspace/lib/python312.zip', '/home/zeus/miniconda3/envs/cloudspace/lib/python3.12', '/home/zeus/miniconda3/envs/cloudspace/lib/python3.12/lib-dynload', '/home/zeus/miniconda3/envs/cloudspace/lib/python3.12/site-packages']
+
+>>> which python
+/commands/python
+
+>>> ls -la
+total 192
+drwxr-xr-x 7 danielpatrickhug danielpatrickhug   4096 Nov 13 18:10 .
+drwxr-xr-x 1 danielpatrickhug danielpatrickhug   4096 Nov 13 18:10 ..
+drwxr-xr-x 8 danielpatrickhug danielpatrickhug   4096 Nov 13 18:05 .git
+drwxr-xr-x 3 danielpatrickhug danielpatrickhug   4096 Nov 13 18:05 .github
+-rw-r--r-- 1 danielpatrickhug danielpatrickhug   3137 Nov 13 18:05 .gitignore
+-rw-r--r-- 1 danielpatrickhug danielpatrickhug      0 Nov 13 18:05 .pre-commit-config.yaml
+-rw-r--r-- 1 danielpatrickhug danielpatrickhug      0 Nov 13 18:05 LICENSE
+-rw-r--r-- 1 danielpatrickhug danielpatrickhug      0 Nov 13 18:05 MANIFEST.in
+-rw-r--r-- 1 danielpatrickhug danielpatrickhug    425 Nov 13 18:05 README.md
+drwxr-xr-x 2 danielpatrickhug danielpatrickhug   4096 Nov 13 18:05 docs
+-rwxr-xr-x 1 danielpatrickhug danielpatrickhug   1066 Nov 13 18:10 gather_info.sh
+-rw-r--r-- 1 danielpatrickhug danielpatrickhug 142854 Nov 13 18:05 poetry.lock
+-rw-r--r-- 1 danielpatrickhug danielpatrickhug    680 Nov 13 18:10 project_info.txt
+-rw-r--r-- 1 danielpatrickhug danielpatrickhug    794 Nov 13 18:05 pyproject.toml
+-rw-r--r-- 1 danielpatrickhug danielpatrickhug   1286 Nov 13 18:05 pyproject.toml.bak
+drwxr-xr-x 3 danielpatrickhug danielpatrickhug   4096 Nov 13 18:05 src
+drwxr-xr-x 2 danielpatrickhug danielpatrickhug   4096 Nov 13 18:05 tests
+-rw-r--r-- 1 danielpatrickhug danielpatrickhug      0 Nov 13 18:05 tox.ini
+
+>>> python -m venv --help
+Error: Venv creation is not allowed. A Studio has a default conda environment (max 1 environment). Start a new Studio to create a new environment.
+
+>>> poetry --version
+zsh: command not found: poetry
+
+>>> poetry show
+zsh: command not found: poetry
+
+>>> git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	gather_info.sh
+	project_info.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+>>> git remote -v
+origin	https://github.com/danielpatrickhug/silhouette.git (fetch)
+origin	https://github.com/danielpatrickhug/silhouette.git (push)
+
+>>> git branch
+* main
+
+>>> cat pyproject.toml
+[tool.poetry]
+name = "silhouette"
+version = "0.1.0"
+description = "AI-powered Python code transformation tool"
+authors = ["Daniel Patrick Hug <DanielPatrickHug@gmail.com>"]
+readme = "README.md"
+packages = [{include = "silhouette", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+libcst = "^1.5.0"
+click = "^8.1.7"
+openai = "^1.54.4"
+instructor = "^1.6.3"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+black = "^24.10.0"
+isort = "^5.13.2"
+mypy = "^1.13.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+silhouette = "silhouette.cli:main"
+
+[tool.black]
+line-length = 88
+target-version = ['py312']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+
+[tool.mypy]
+ignore_missing_imports = true
+>>> cat requirements.txt
+cat: requirements.txt: No such file or directory
+
+>>> ls .env*
+ls: cannot access '.env*': No such file or directory
+
+>>> uname -a
+Linux ip-10-192-12-149 5.15.0-1071-aws #77~20.04.1-Ubuntu SMP Thu Oct 3 19:39:59 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux
+
+>>> df -h
+Filesystem              Size  Used Avail Use% Mounted on
+overlay                 388G   28G  360G   8% /
+tmpfs                    64M     0   64M   0% /dev
+/dev/root               388G   28G  360G   8% /system
+tmpfs                   7.7G     0  7.7G   0% /dev/shm
+overlay                 388G   28G  360G   8% /home/zeus
+tmpfs                   1.6G  540K  1.6G   1% /run
+tmpfs                   5.0M     0  5.0M   0% /run/lock
+imagenet-tiny           1.0P     0  1.0P   0% /teamspace/s3_connections/computer-vision-example
+conda                    46G  4.4G   41G  10% /system/conda
+grid-cloud-litng-ai-03  1.0P     0  1.0P   0% /teamspace/studios/scratch-studio
+
+>>> free -h
+              total        used        free      shared  buff/cache   available
+Mem:           15Gi       2.2Gi       5.4Gi       1.0Mi       7.7Gi        12Gi
+Swap:           9Gi          0B         9Gi
+
+>>> env | grep PYTHON
+CONDA_PYTHON_EXE=/home/zeus/miniconda3/bin/python
+
+>>> ls .git/hooks
+applypatch-msg.sample
+commit-msg.sample
+fsmonitor-watchman.sample
+post-update.sample
+pre-applypatch.sample
+pre-commit.sample
+pre-merge-commit.sample
+pre-push.sample
+pre-rebase.sample
+pre-receive.sample
+prepare-commit-msg.sample
+push-to-checkout.sample
+sendemail-validate.sample
+update.sample
+

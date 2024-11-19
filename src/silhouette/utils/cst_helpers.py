@@ -1,4 +1,5 @@
 import libcst as cst
+import libcst.matchers as m
 from typing import Union, List
 
 def get_function_code(node: Union[cst.FunctionDef, cst.Module]) -> str:
@@ -36,40 +37,59 @@ def find_functions(tree: cst.Module) -> List[cst.FunctionDef]:
 
 def has_docstring(node: cst.FunctionDef) -> bool:
     """
-    Check if a function has a docstring.
+    Check if a function already has a docstring.
     
     Args:
-        node (cst.FunctionDef): The function node to check.
-    
+        node: The function definition node to check
+        
     Returns:
-        bool: True if the function has a docstring, False otherwise.
+        True if the function has a docstring, False otherwise
     """
-    return node.get_docstring() is not None
+    if not node.body.body:
+        return False
+    
+    first_stmt = node.body.body[0]
+    if isinstance(first_stmt, cst.SimpleStatementLine):
+        if len(first_stmt.body) == 1 and isinstance(first_stmt.body[0], cst.Expr):
+            return isinstance(first_stmt.body[0].value, cst.SimpleString)
+    return False
+
 
 def add_import(tree: cst.Module, import_statement: str) -> cst.Module:
     """
     Add an import statement to the module if it doesn't already exist.
-    
+
     Args:
         tree (cst.Module): The CST of the module to modify.
         import_statement (str): The import statement to add.
-    
+
     Returns:
         cst.Module: The modified CST with the new import statement.
     """
     new_import = cst.parse_statement(import_statement)
-    
+    import_code = cst.Module([]).code_for_node(new_import).strip()
+
     class ImportAdder(cst.CSTTransformer):
-        def leave_Module(self, original_node: cst.Module, updated_node: cst.Module) -> cst.Module:
-            for stmt in updated_node.body:
-                if isinstance(stmt, cst.SimpleStatementLine) and isinstance(stmt.body[0], (cst.Import, cst.ImportFrom)):
-                    if stmt.body[0].code == import_statement:
-                        return updated_node
-            
-            return updated_node.with_changes(
-                body=(cst.SimpleStatementLine([new_import]),) + updated_node.body
-            )
-    
+        def __init__(self):
+            self.import_exists = False
+
+        def visit_SimpleStatementLine(self, node: cst.SimpleStatementLine) -> bool:
+            if any(
+                m.matches(stmt, m.Import() | m.ImportFrom())
+                and cst.Module([]).code_for_node(stmt).strip() == import_code
+                for stmt in node.body
+            ):
+                self.import_exists = True
+            return not self.import_exists  # Stop visiting if the import already exists.
+
+        def leave_Module(
+            self, original_node: cst.Module, updated_node: cst.Module
+        ) -> cst.Module:
+            if not self.import_exists:
+                new_body = [new_import] + list(updated_node.body)
+                return updated_node.with_changes(body=new_body)
+            return updated_node
+
     return tree.visit(ImportAdder())
 
 

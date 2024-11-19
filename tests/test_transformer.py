@@ -38,31 +38,31 @@ def test_add_docstrings(transformer):
 
 def test_add_type_hints(transformer):
     source_code = """
-        def example_function(x, y):
-            return x + y
-        """
+def example_function(x, y):
+    return x + y
+"""
     transformer.load_source(source_code)
     transformer.add_type_hints()
     result = transformer.transform()
 
     expected = '''
-        def example_function(x: int, y: str) -> bool:
-            return x + y
-        '''
+def example_function(x: int, y: str) -> bool:
+    return x + y
+'''
     assert result.strip() == expected.strip()
 
 def test_full_transformation(transformer):
     source_code = """
-        def example_function(x, y):
-            return x + y
-        """
+def example_function(x, y):
+    return x + y
+"""
     transformer.load_source(source_code)
     transformer.add_docstrings().add_type_hints()
     result = transformer.transform()
 
     expected = '''
-        def example_function(x: int, y: str) -> bool:
-            """This is a mock docstring."""
-            return x + y
-        '''
+def example_function(x: int, y: str) -> bool:
+    """This is a mock docstring."""
+    return x + y
+'''
     assert result.strip() == expected.strip()

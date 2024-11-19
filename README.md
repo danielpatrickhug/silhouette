@@ -12,3 +12,7 @@ Silhouette is an AI-powered Python code transformation tool that uses libcst and
 ```bash
 pip install -e .
 ```
+
+
+# Potential Apps
+- Integrate OpenBugger and make a realtime timed bug hunt game 

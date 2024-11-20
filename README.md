@@ -69,12 +69,12 @@ from silhouette.utils.cst_helpers import add_import
 
 module = cst.parse_module(result)
 
-updated_module = add_import(module, "from typing import List")
+updated_module = add_import(module, "from typing import Optional, List")
 print(updated_module.code)
 ```
 ### Output
 ``` python
-from typing import List
+from typing import Optional, List
 def calculate_average(numbers: List[float], weights: Optional[List[float]]=None) -> float:
     """This function calculates the weighted or unweighted average of a list of numbers.
     

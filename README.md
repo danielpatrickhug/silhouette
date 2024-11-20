@@ -64,13 +64,10 @@ def calculate_average(numbers: List[float], weights: Optional[List[float]]=None)
 
 ## Example Usage: Add New Imports
 ```python
-import libcst as cst
 from silhouette.utils.cst_helpers import add_import
 
-module = cst.parse_module(result)
-
-updated_module = add_import(module, "from typing import Optional, List")
-print(updated_module.code)
+result = add_import(result, "from typing import Optional, List")
+print(result)
 ```
 ### Output
 ``` python

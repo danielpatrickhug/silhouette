@@ -91,7 +91,7 @@ def add_import(source_code: str, import_statement: str) -> cst.Module:
                 return updated_node.with_changes(body=new_body)
             return updated_node
 
-    return tree.visit(ImportAdder())
+    return tree.visit(ImportAdder()).code
 
 
 def add_type_annotation(node: cst.Param, type_annotation: str) -> cst.Param:

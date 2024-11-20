@@ -55,7 +55,7 @@ def has_docstring(node: cst.FunctionDef) -> bool:
     return False
 
 
-def add_import(tree: cst.Module, import_statement: str) -> cst.Module:
+def add_import(source_code: str, import_statement: str) -> cst.Module:
     """
     Add an import statement to the module if it doesn't already exist.
 
@@ -66,6 +66,7 @@ def add_import(tree: cst.Module, import_statement: str) -> cst.Module:
     Returns:
         cst.Module: The modified CST with the new import statement.
     """
+    tree = cst.parse_module(source_code)
     new_import = cst.parse_statement(import_statement)
     import_code = cst.Module([]).code_for_node(new_import).strip()
 

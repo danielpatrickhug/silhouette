@@ -7,7 +7,7 @@ Silhouette is an AI-powered Python code transformation tool that uses libcst, in
 - Automatically generate comprehensive docstrings for functions, classes, and modules
 - Add type hints to function parameters and return values
 - Preserve existing code structure and comments
-- Use LibCST to validate valid python code
+- Use LibCST to validate python code
 - Use Instructor to validate gpt outputs
 
 

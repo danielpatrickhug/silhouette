@@ -33,7 +33,7 @@ def calculate_average(numbers, weights=None):
     return total / count if count else 0
 """
 
-final_code = add_docstrings(source_code, api_key)
+documented_code = add_docstrings(source_code, api_key)
 
 result = add_type_hints(final_code, api_key)
 print(result)

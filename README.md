@@ -35,7 +35,7 @@ def calculate_average(numbers, weights=None):
 
 documented_code = add_docstrings(source_code, api_key)
 
-result = add_type_hints(final_code, api_key)
+result = add_type_hints(documented_code, api_key)
 print(result)
 ```
 ### Output

@@ -39,6 +39,6 @@ def func_with_docstring():
     assert not has_docstring(without_docstring)
 
 def test_add_import():
-    module = cst.parse_module("def test(): pass")
-    updated_module = add_import(module, "import os")
-    assert "import os" in updated_module.code
+    code = "def test(): pass"
+    updated_module = add_import(code, "import os")
+    assert "import os" in updated_module

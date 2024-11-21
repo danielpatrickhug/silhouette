@@ -1,16 +1,7 @@
-from typing import Dict, Any, Optional
-from pydantic import BaseModel, Field
 from openai import OpenAI
 import instructor
+from silhouette.utils.config import TypeHints, Docstring
 
-class TypeHints(BaseModel):
-    """Model for type hints response."""
-    param_types: Dict[str, str]
-    return_type: str
-
-class Docstring(BaseModel):
-    """Model for docstring generation response."""
-    content: str = Field(description="The docstring content")
 
 class GPTInterface:
     def __init__(self, api_key: str):

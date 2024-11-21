@@ -57,7 +57,9 @@ def main():
 
     # Collect files to process
     files_to_process = []
+    is_single_file = False  # Add this flag
     if os.path.isfile(args.path):
+        is_single_file = True  # Set flag to True when processing a single file
         if args.path.endswith(".py"):
             files_to_process.append(args.path)
         else:
@@ -99,8 +101,13 @@ def main():
         output_path = file_path
         if args.output:
             if os.path.isdir(args.output):
-                relative_path = os.path.relpath(file_path, args.path)
-                output_path = os.path.join(args.output, relative_path)
+                if is_single_file:
+                    # When processing a single file, use its basename
+                    output_path = os.path.join(args.output, os.path.basename(file_path))
+                else:
+                    # For directories, use relative paths
+                    relative_path = os.path.relpath(file_path, args.path)
+                    output_path = os.path.join(args.output, relative_path)
                 os.makedirs(os.path.dirname(output_path), exist_ok=True)
             else:
                 output_path = args.output
